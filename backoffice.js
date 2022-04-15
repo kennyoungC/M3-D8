@@ -99,11 +99,7 @@ const handleDelete = async () => {
     try {
       let response = await fetch(endpoint, {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDgxN2M1ZWU3ODE4NzAwMTVjMjY3YTgiLCJpYXQiOjE2NDk5Njc2NjEsImV4cCI6MTY1MTE3NzI2MX0.bJ-a8RydRHuvCgXmMewdmveQbMkVWZnCshZjuA2SYwQ",
-        },
+        headers,
       });
 
       if (response.ok) {
@@ -113,9 +109,11 @@ const handleDelete = async () => {
           "Product: " + deletedObj.name + "  successfully deleted"
         );
         setTimeout(() => window.location.assign("/"), 3000);
+      } else {
+        throw new Error("Fail to delete product");
       }
     } catch (err) {
-      console.log(err);
+      showAlert("danger", err.message);
     }
   }
 };
