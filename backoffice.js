@@ -1,4 +1,9 @@
 `use strict`;
+const headers = new Headers({
+  "Content-Type": "application/json",
+  Authorization:
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDgxN2M1ZWU3ODE4NzAwMTVjMjY3YTgiLCJpYXQiOjE2NDk5Njc2NjEsImV4cCI6MTY1MTE3NzI2MX0.bJ-a8RydRHuvCgXmMewdmveQbMkVWZnCshZjuA2SYwQ",
+});
 const productId = new URLSearchParams(window.location.search).get("productId");
 const endpoint = productId
   ? "https://striveschool-api.herokuapp.com/api/product/" + productId
@@ -21,11 +26,7 @@ const handleSubmit = async (event) => {
     const response = await fetch(endpoint, {
       method,
       body: JSON.stringify(myDetail),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDgxN2M1ZWU3ODE4NzAwMTVjMjY3YTgiLCJpYXQiOjE2NDk5Njc2NjEsImV4cCI6MTY1MTE3NzI2MX0.bJ-a8RydRHuvCgXmMewdmveQbMkVWZnCshZjuA2SYwQ",
-      },
+      headers,
     });
     if (response.ok) {
       const products = await response.json();
@@ -52,12 +53,7 @@ const handleEdit = async () => {
   try {
     if (productId) {
       const response = await fetch(endpoint, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDgxN2M1ZWU3ODE4NzAwMTVjMjY3YTgiLCJpYXQiOjE2NDk5Njc2NjEsImV4cCI6MTY1MTE3NzI2MX0.bJ-a8RydRHuvCgXmMewdmveQbMkVWZnCshZjuA2SYwQ",
-        },
+        headers,
       });
       const { name, brand, imageUrl, price, description } =
         await response.json();
