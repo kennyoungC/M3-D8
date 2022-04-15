@@ -110,21 +110,23 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      const btnAdd = document.querySelector(".btn-add");
-      const name = document.getElementById("name");
-      const brand = document.getElementById("brand");
-      const image = document.getElementById("image");
-      const productDescription = document.getElementById("product-description");
-      const price = document.getElementById("price");
+      const btnAdd = document.querySelector(".btn-add").value;
+      const name = parseInt(document.getElementById("name").value);
+      const brand = document.getElementById("brand").value;
+      const image = document.getElementById("image").value;
+      const productDescription = document.getElementById(
+        "product-description"
+      ).value;
+      const price = document.getElementById("price").value;
       btnAdd.addEventListener("click", async (e) => {
         e.preventDefault();
         const url = "https://striveschool-api.herokuapp.com/api/product/";
         const newItem = {
-          name: name.value,
-          brand: brand.value,
-          image: image.value,
-          decription: productDescription.value,
-          brand: brand.value,
+          name,
+          brand,
+          image,
+          decription,
+          brand,
         };
         try {
           const response = await fetch(url, {
@@ -137,6 +139,7 @@
           if (response.ok) {
             const respEvent = response.json();
             alert("New item added with the ID of" + respEvent.id);
+            window.location.assign("/");
           }
         } catch (error) {
           console.log(error);
